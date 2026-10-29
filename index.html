@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 Midterm Predictions</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14171f; --muted: #5f6674; --page: #f5f6f8; --line: #e4e6eb; --stroke: #fff; --panel: #fff;
+    --idle: #d3d7de;   /* election this year, no prediction */
+    --off: #e9ebef;    /* no election this year */
+    --ease: cubic-bezier(.22, .8, .24, 1);
+    --pw: clamp(400px, 34vw, 640px);
+  }
+  /* Rating colours: matched OKLCH ramps (same lightness + chroma per step in both parties) */
+  .D.tilt { --f: #c6dbf7; } .D.lean { --f: #96bef1; } .D.likely { --f: #5e97e0; } .D.safe { --f: #2769b7; }
+  .R.tilt { --f: #f6ceca; } .R.lean { --f: #eca69f; } .R.likely { --f: #d7746e; } .R.safe { --f: #ab413e; }
+  [data-theme="soft"] .D.tilt { --f: #cfdaed; } [data-theme="soft"] .D.lean { --f: #b1c5e9; } [data-theme="soft"] .D.likely { --f: #839fd2; } [data-theme="soft"] .D.safe { --f: #5471a7; }
+  [data-theme="soft"] .R.tilt { --f: #ecd2d4; } [data-theme="soft"] .R.lean { --f: #e5b6bb; } [data-theme="soft"] .R.likely { --f: #cb8a91; } [data-theme="soft"] .R.safe { --f: #9f5a63; }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; display: flex; flex-direction: column; height: 100dvh; overflow: hidden;
+    background: var(--page); color: var(--ink);
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  button { font-family: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+  /* Header */
+  .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 28px; }
+  h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.015em; }
+  .toggle { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: #e3e6ec; border-radius: 999px; padding: 4px; }
+  .toggle button { position: relative; z-index: 1; border: 0; background: none; cursor: pointer; padding: 10px 30px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--muted); transition: color .35s; }
+  .toggle button[aria-pressed="true"] { color: #fff; }
+  .thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); background: var(--ink); border-radius: 999px; transition: transform .45s var(--ease); }
+  .toggle[data-mode="governor"] .thumb { transform: translateX(100%); }
+
+  /* Stage: map fills everything, panel slides in beside it */
+  .stage { flex: 1; min-height: 0; display: flex; }
+  .map-area { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 0 28px 18px; }
+  #map { flex: 1; min-height: 0; }
+  #map svg { display: block; width: 100%; height: 100%; }
+  .msg { color: var(--muted); text-align: center; padding-top: 120px; font-size: 14px; }
+
+  /* States */
+  .state { fill: var(--idle); stroke: var(--stroke); stroke-width: 1; outline: none; transition: fill .6s ease var(--d, 0s), opacity .3s ease; }
+  .state:focus { outline: none; }
+  .state.off { fill: var(--off); }
+  .state.race, .state.called { fill: var(--f); }
+  .state.race { cursor: pointer; }
+  .state.dim { opacity: .18; }
+  #hover, #outline { fill: none; pointer-events: none; stroke-linejoin: round; }
+  #hover { stroke: var(--ink); stroke-width: 2.6; }
+  #hover.kb { stroke: var(--ink); stroke-width: 3.4; }
+  #outline { stroke: var(--ink); stroke-width: 3.2; stroke-dasharray: 1; }
+  #detail, #flips { pointer-events: none; }
+  #detail path { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; animation: fade .7s ease .35s both; }
+  .ring { fill: #fff; stroke: var(--ink); stroke-width: 1.3; } .old { fill: var(--f); }
+  .spot #detail, .spot #flips { opacity: .25; transition: opacity .2s; }
+  #outline.draw { animation: draw .7s var(--ease); }
+  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes fade { from { opacity: 0; } }
+
+  /* Legend */
+  .legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 12px 36px; }
+  .scale { display: flex; gap: 2px; }
+  .seg { width: 62px; border: 0; background: none; padding: 4px 0; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--muted); text-align: center; cursor: default; }
+  .seg i { display: block; height: 8px; background: var(--f); margin-bottom: 6px; }
+  .seg:first-child i { border-radius: 4px 0 0 4px; } .seg:last-child i { border-radius: 0 4px 4px 0; }
+  .extras { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; border: 0; background: none; padding: 4px 2px; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--muted); cursor: default; }
+  .seg:hover, .chip:hover { color: var(--ink); }
+  .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .sw.outline { background: #d3d7de; box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .sw.flipmk { border-radius: 50%; background: radial-gradient(circle, var(--muted) 0 26%, #fff 30%); box-shadow: inset 0 0 0 1.3px var(--ink); }
+  .chip[hidden] { display: none; } .sw.idle { background: var(--idle); } .sw.off { background: var(--off); }
+
+
+  /* Control strip: one card, three columns. Every column opens with the same 11px label line, so tops align. */
+  .control { display: grid; grid-template-columns: auto minmax(300px, 1.5fr) minmax(260px, 1fr); margin: 0 0 14px; background: var(--panel); border-radius: 16px; box-shadow: 0 0 0 1px var(--line); }
+  .control > div { min-width: 0; padding: 14px 22px 16px; }
+  .control > div + div { border-left: 1px solid var(--line); }
+  .ck { margin: 0 0 10px; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--muted); }
+  .score { display: flex; align-items: baseline; gap: 10px; font-size: 30px; line-height: 34px; font-weight: 800; letter-spacing: -.02em; }
+  .score b { color: var(--f); } .score span { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+  .verdict { margin-top: 8px; font-size: 13px; line-height: 18px; font-weight: 700; }
+  .ctl-sub { display: block; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--muted); }
+  .crow { display: grid; grid-template-columns: 62px 24px 1fr 24px; align-items: center; gap: 10px; height: 20px; font-size: 12px; line-height: 16px; }
+  .crow + .crow { margin-top: 6px; }
+  .crow .lbl { font-weight: 600; color: var(--muted); }
+  .crow .n { font-weight: 800; color: var(--f); } .crow .n:last-child { text-align: right; }
+  .seats { position: relative; display: flex; gap: 1.5px; height: 14px; }
+  .crow.now .seats { height: 6px; opacity: .5; }
+  .seats i { flex: 1; border-radius: 2px; background: var(--f); }
+  .seats i.gain { background: color-mix(in srgb, var(--f) 16%, #fff); box-shadow: inset 0 0 0 1.5px var(--f); }
+  .seats .maj { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ink); }
+  .flipgrp { display: grid; grid-template-columns: 112px 1fr; gap: 8px; align-items: start; }
+  .flipgrp + .flipgrp { margin-top: 8px; }
+  .gl { font-size: 12px; line-height: 24px; font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .flip { display: inline-flex; align-items: center; gap: 6px; height: 24px; border: 0; background: var(--page); border-radius: 999px; padding: 0 11px 0 9px; font-size: 12px; font-weight: 600; cursor: default; }
+  button.flip { cursor: pointer; transition: background .2s; } button.flip:hover { background: var(--line); }
+  .flip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .noflip { font-size: 12px; line-height: 24px; font-weight: 600; color: var(--muted); }
+
+  /* Methodology dialog */
+  .about { justify-self: end; border: 0; background: #e3e6ec; border-radius: 999px; padding: 10px 18px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; transition: background .2s, color .2s; }
+  .about:hover { background: var(--line); color: var(--ink); }
+  dialog { width: min(640px, 92vw); max-height: 86dvh; padding: 0; border: 0; border-radius: 20px; background: var(--panel); color: var(--ink); box-shadow: 0 0 0 1px var(--line), 0 24px 64px rgba(16,19,26,.28); }
+  dialog::backdrop { background: rgba(16,19,26,.4); }
+  .about-body { max-height: 86dvh; overflow-y: auto; padding: 24px 28px 14px; }
+  .about-body header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+  .about-body h2 { margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -.01em; }
+  .about-body p { margin: 0 0 14px; font-size: 14px; line-height: 1.7; }
+  .about-body p b { font-weight: 800; }
+
+  /* Tooltip */
+  #tip { position: fixed; top: 0; left: 0; z-index: 5; pointer-events: none; opacity: 0; transition: opacity .15s; background: var(--ink); color: #fff; border-radius: 10px; padding: 8px 12px; font-size: 12px; line-height: 1.5; white-space: nowrap; }
+  #tip.on { opacity: 1; }
+  #tip em { display: block; font-style: normal; opacity: .7; }
+  #tip b { display: block; font-size: 13px; font-weight: 800; }
+  #tip .dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot { display: inline-block; background: var(--f); }
+
+  /* Panel */
+  #panel { position: relative; flex: 0 0 auto; width: 0; margin: 0 0 18px; overflow: hidden; opacity: 0; background: var(--panel); border-radius: 20px; align-self: stretch;
+    transition: width .6s var(--ease), margin .6s var(--ease), opacity .4s ease, box-shadow .6s; }
+  body.has-sel #panel { width: var(--pw); margin-right: 28px; opacity: 1; box-shadow: 0 0 0 1px var(--line), 0 20px 56px rgba(16,19,26,.12); }
+  .panel-inner { width: var(--pw); height: 100%; overflow-y: auto; scrollbar-width: thin; }
+  .stripe { display: block; height: 6px; background: var(--f); }
+  .panel-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: 12px; padding: 18px 20px 12px; background: #fff; }
+  .panel-head div { flex: 1; }
+  .panel-head h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+  .panel-head p { margin: 2px 0 0; font-size: 13px; color: var(--muted); font-weight: 500; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .pill .dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,.85); }
+  .close { border: 0; background: #eef0f4; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; line-height: 1; cursor: pointer; transition: background .2s; }
+  .close:hover { background: #dfe3ea; }
+  .panel-head, .panel-inner img { animation: rise .55s var(--ease) both; }
+  .panel-inner img { display: block; width: 100%; height: auto; animation-delay: .08s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 860px) {
+    .top { grid-template-columns: 1fr; justify-items: center; gap: 12px; padding: 14px 16px 8px; }
+    .map-area { padding: 0 12px 12px; }
+    .seg { width: 44px; }
+    .control { grid-template-columns: 1fr; }
+    .control > div + div { border-left: 0; border-top: 1px solid var(--line); }
+    .about { justify-self: center; }
+    #panel, body.has-sel #panel { position: fixed; left: 0; right: 0; bottom: 0; width: auto; height: 82dvh; margin: 0; opacity: 1; border-radius: 20px 20px 0 0; box-shadow: 0 -12px 40px rgba(16,19,26,.18); transform: translateY(105%); transition: transform .6s var(--ease); }
+    body.has-sel #panel { transform: none; }
+    .panel-inner { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; transition-delay: 0s !important; animation-delay: 0s !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>2026 Midterm Predictions</h1>
+  <div class="toggle" id="toggle" data-mode="senate">
+    <i class="thumb"></i>
+    <button data-mode="senate" aria-pressed="true">Senate</button>
+    <button data-mode="governor" aria-pressed="false">Governor</button>
+  </div>
+  <button class="about" id="aboutBtn">Methodology</button>
+</header>
+
+<div class="stage">
+  <main class="map-area">
+    <section class="control" id="control" aria-label="Chamber control"></section>
+    <div id="map"><p class="msg">Loading map…</p></div>
+    <div class="legend" id="legend"></div>
+  </main>
+  <aside id="panel" inert></aside>
+</div>
+<div id="tip" role="tooltip"></div>
+<dialog id="about" aria-labelledby="aboutTitle">
+  <div class="about-body">
+    <header>
+      <h2 id="aboutTitle">Where did I get these results from / Methodology?</h2>
+      <button class="close about-close" aria-label="Close">×</button>
+    </header>
+    <p>These are informal predictions done by someone who follows politics as a hobby, and as such take any predictions with a grain of salt. Most of my predictions are a combination of current polling, fundamentals, and my personal opinion. Here, I will explain what each of these mean and how they come into play.</p>
+    <p><b>Polling</b> - Arguably the simplest one. I heavily weigh in polling into my predictions, as it gives a good general indicator of candidate quality. For example, polling consistently shows James Talarico as a strong candidate against Ken Paxton, who consistently polls as a weak candidate. Or alternatively, we can apply this to states like Nebraska, where polling suggests Dan Osborn is running a significantly weaker campaign this year compared to two years ago.</p>
+    <p><b>Fundamentals</b> - Looking at a state, it's demographics, and it's national environment. Polling and early vote shows significant swings in Hispanic voters to the Democratic Party, and is most demonstrated in Mexican-Americans. As such, I weigh in these fundamentals to states with large Hispanic populations, such as Texas, Florida, and Georgia. Additionally, the national environment suggest that Democrats are now the party of high propensity voters - highly informed voters that tend to vote even in little-known elections. Early voting has also shown weaker Republican turnout nationally.</p>
+    <p><b>My personal opinion</b> - Of course, some of these are just in part my opinion. Some states I give heavier preference to either Democrats or Republicans, usually due to my personal opinion on how well a candidate is running their campaign.</p>
+  </div>
+</dialog>
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+/* ---------------------------------------------------------------
+   YOUR PREDICTIONS — edit here.
+   margin: the final margin shown on your image.
+           Positive = Democratic lead, negative = Republican lead.
+   img:    the exported prediction image for that race.
+   States listed here are solid on the map (detailed prediction).
+   --------------------------------------------------------------- */
+const RACES = {
+  senate: {
+    "Alaska":         { margin:  2.3, img: "images/ak-senate.png" },
+    "Florida":        { margin: -7.2, img: "images/fl-senate.png" },
+    "Georgia":        { margin:  8.3, img: "images/ga-senate.png" },
+    "Iowa":           { margin: -1.7, img: "images/ia-senate.png" },
+    "Kansas":         { margin: -2.6, img: "images/ks-senate.png" },
+    "Maine":          { margin:  2.4, img: "images/me-senate.png" },
+    "Michigan":       { margin:  3.7, img: "images/mi-senate.png" },
+    "Minnesota":      { margin:  5.9, img: "images/mn-senate.png" },
+    "Mississippi":    { margin: -6.5, img: "images/ms-senate.png" },
+    "Nebraska":       { margin: -4.9, img: "images/ne-senate.png" },
+    "North Carolina": { margin:  8.3, img: "images/nc-senate.png" },
+    "Ohio":           { margin:  2.0, img: "images/oh-senate.png" },
+    "South Carolina": { margin: -3.8, img: "images/sc-senate.png" },
+    "Texas":          { margin:  1.5, img: "images/tx-senate.png" }
+  },
+  governor: {
+    "Alaska":       { margin:   5.0, img: "images/ak-governor.png" },
+    "Arizona":      { margin:   6.9, img: "images/az-governor.png" },
+    "Florida":      { margin:  -2.3, img: "images/fl-governor.png" },
+    "Georgia":      { margin:   1.1, img: "images/ga-governor.png" },
+    "Iowa":         { margin:   6.2, img: "images/ia-governor.png" },
+    "New York":     { margin:  13.3, img: "images/ny-governor.png" },
+    "Ohio":         { margin:   3.2, img: "images/oh-governor.png" },
+    "Pennsylvania": { margin:  19.0, img: "images/pa-governor.png" },
+    "Texas":        { margin:  -1.4, img: "images/tx-governor.png" },
+    "Wisconsin":    { margin:   7.1, img: "images/wi-governor.png" }
+  }
+};
+
+/* ---------------------------------------------------------------
+   RATINGS ONLY — states that get a colour on the map but no detailed
+   prediction page. Format: "Safe D", "Likely R", "Lean D", "Tilt R".
+   --------------------------------------------------------------- */
+const RATINGS = {
+  senate: {
+    "South Dakota": "Likely R", "Montana": "Likely R", "New Hampshire": "Likely D",
+    "Illinois": "Safe D", "Virginia": "Safe D", "New Mexico": "Safe D", "Colorado": "Safe D",
+    "Oregon": "Safe D", "Massachusetts": "Safe D", "Delaware": "Safe D", "New Jersey": "Safe D", "Rhode Island": "Safe D",
+    "Kentucky": "Safe R", "West Virginia": "Safe R", "Tennessee": "Safe R", "Alabama": "Safe R", "Louisiana": "Likely R",
+    "Arkansas": "Safe R", "Oklahoma": "Safe R", "Wyoming": "Safe R", "Idaho": "Safe R"
+  },
+  governor: {
+    "California": "Safe D", "Colorado": "Safe D", "New Mexico": "Safe D", "Illinois": "Safe D", "Maryland": "Safe D",
+    "Massachusetts": "Safe D", "Rhode Island": "Safe D", "Connecticut": "Safe D", "Minnesota": "Safe D", "Hawaii": "Safe D",
+    "Michigan": "Likely D", "Maine": "Likely D", "Nevada": "Tilt D", "Oregon": "Lean D",
+    "Idaho": "Safe R", "Wyoming": "Safe R", "Nebraska": "Safe R", "South Dakota": "Safe R",
+    "Tennessee": "Safe R", "Oklahoma": "Safe R", "Arkansas": "Safe R", "Alabama": "Safe R",
+    "South Carolina": "Likely R", "New Hampshire": "Likely R", "Vermont": "Likely R", "Kansas": "Lean R"
+  }
+};
+
+/* Rating bands: a margin under `max` gets that label (Tilt <1, Lean 1-5, Likely 5-15, Safe 15+). */
+const BANDS = [
+  { max: 1,        label: "Tilt",   cls: "tilt" },
+  { max: 5,        label: "Lean",   cls: "lean" },
+  { max: 15,       label: "Likely", cls: "likely" },
+  { max: Infinity, label: "Safe",   cls: "safe" }
+];
+
+/* States holding an election in 2026 (Senate includes the Florida and Ohio specials). */
+const ELECTING = {
+  senate: "Alabama, Alaska, Arkansas, Colorado, Delaware, Florida, Georgia, Idaho, Illinois, Iowa, Kansas, Kentucky, Louisiana, Maine, Massachusetts, Michigan, Minnesota, Mississippi, Montana, Nebraska, New Hampshire, New Jersey, New Mexico, North Carolina, Ohio, Oklahoma, Oregon, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Virginia, West Virginia, Wyoming".split(", "),
+  governor: "Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Florida, Georgia, Hawaii, Idaho, Illinois, Iowa, Kansas, Maine, Maryland, Massachusetts, Michigan, Minnesota, Nebraska, Nevada, New Hampshire, New Mexico, New York, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Vermont, Wisconsin, Wyoming".split(", ")
+};
+
+
+/* Control: who holds each chamber now. `now` counts seats (Senate D includes 2 independents).
+   `up` lists the party that currently holds each seat on the ballot in 2026.
+   Projections and flips are calculated from the ratings above. */
+const CONTROL = {
+  senate: { name: "Senate", of: "the Senate", total: 100, need: 51, now: { D: 47, R: 53 }, noun: "seats",
+    up: {
+      D: "Colorado, Delaware, Georgia, Illinois, Massachusetts, Michigan, Minnesota, New Hampshire, New Jersey, New Mexico, Oregon, Rhode Island, Virginia".split(", "),
+      R: "Alabama, Alaska, Arkansas, Florida, Idaho, Iowa, Kansas, Kentucky, Louisiana, Maine, Mississippi, Montana, Nebraska, North Carolina, Ohio, Oklahoma, South Carolina, South Dakota, Tennessee, Texas, West Virginia, Wyoming".split(", ") } },
+  governor: { name: "Governors", of: "governorships", total: 50, need: 26, now: { D: 24, R: 26 }, noun: "governorships",
+    up: {
+      D: "Arizona, California, Colorado, Connecticut, Hawaii, Illinois, Kansas, Maine, Maryland, Massachusetts, Michigan, Minnesota, New Mexico, New York, Oregon, Pennsylvania, Rhode Island, Wisconsin".split(", "),
+      R: "Alabama, Alaska, Arkansas, Florida, Georgia, Idaho, Iowa, Nebraska, Nevada, New Hampshire, Ohio, Oklahoma, South Carolina, South Dakota, Tennessee, Texas, Vermont, Wyoming".split(", ") } }
+};
+const PARTY = { D: "Democrats", R: "Republicans" };
+
+function renderControl() {
+  const c = CONTROL[mode], flips = { D: [], R: [] };
+  for (const f of flipList()) flips[f.to].push(f.name);
+  const a = flips.D.length, b = flips.R.length;
+  const proj = { D: c.now.D + a - b, R: c.now.R + b - a };
+  const lead = x => x.D >= c.need ? "D" : x.R >= c.need ? "R" : null;
+  const [was, will] = [lead(c.now), lead(proj)];
+  const verdict = will ? `${PARTY[will]} ${will === was ? "keep" : "take"} control` : "No majority";
+  const net = proj.D - c.now.D;
+  const netTxt = net ? `${PARTY[net > 0 ? "D" : "R"]} gain ${Math.abs(net)} ${c.noun}` : "No net change";
+  const seats = parts => `<div class="seats">${parts.map(([n, k]) => `<i class="${k}"></i>`.repeat(Math.max(n, 0))).join("")}<b class="maj" style="left:${c.need / c.total * 100}%"></b></div>`;
+  const row = (cls, label, x, parts) => `<div class="crow ${cls}"><span class="lbl">${label}</span><b class="n D safe">${x.D}</b>${seats(parts)}<b class="n R safe">${x.R}</b></div>`;
+  const chip = (p, n) => RACES[mode][n]
+    ? `<button class="flip" data-name="${n}"><i class="dot ${p} safe"></i>${n}</button>`
+    : `<span class="flip" data-name="${n}"><i class="dot ${p} safe"></i>${n}</span>`;
+  const group = (p, list) => list.length ? `<div class="flipgrp"><span class="gl">${list.length} to ${PARTY[p]}</span><div class="chips">${list.map(n => chip(p, n)).join("")}</div></div>` : "";
+  $("control").innerHTML = `
+    <div><p class="ck">Projected control of ${c.of}</p>
+      <div class="score"><b class="D safe">${proj.D}</b><span>to</span><b class="R safe">${proj.R}</b></div>
+      <div class="verdict">${verdict}</div><span class="ctl-sub">${netTxt}</span></div>
+    <div><p class="ck">Seats. The line marks ${c.need} for a majority, outlined seats flip.</p>
+      ${row("now", "Now", c.now, [[c.now.D, "D safe"], [c.now.R, "R safe"]])}
+      ${row("", "Projected", proj, [[proj.D - a, "D safe"], [a, "D safe gain"], [b, "R safe gain"], [proj.R - b, "R safe"]])}</div>
+    <div><p class="ck">Seats that flip</p>${group("D", flips.D)}${group("R", flips.R)}${a + b ? "" : '<span class="noflip">No seats flip</span>'}</div>`;
+}
+
+/* ------------------------------ app ------------------------------ */
+const TITLES = { senate: "Senate", governor: "Governor" };
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const panel = $("panel"), tip = $("tip"), toggle = $("toggle");
+const paths = new Map(), cent = new Map();
+let mode = "senate", selected = null, detailFor = null, outline, hover, detail, flipsG, kb = false;
+
+const rate = race => ({ ...BANDS.find(b => Math.abs(race.margin) < b.max), party: race.margin > 0 ? "D" : "R" });
+const ratingOf = name => {
+  const race = RACES[mode][name];
+  if (race) return rate(race);
+  const s = RATINGS[mode][name];
+  if (!s) return null;
+  const [label, party] = s.split(" ");
+  return { label, party, cls: label.toLowerCase() };
+};
+const svgEl = (tag, attrs = {}) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+
+function flipList() {
+  const c = CONTROL[mode], out = [];
+  for (const p of ["D", "R"]) for (const name of c.up[p]) { const r = ratingOf(name); if (r && r.party !== p) out.push({ name, from: p, to: r.party }); }
+  return out;
+}
+
+function highlight(match) {
+  paths.forEach((el, n) => el.classList.toggle("dim", !!match && !match(n, el)));
+  const svg = document.querySelector("#map svg");
+  if (svg) svg.classList.toggle("spot", !!match);
+}
+
+function buildLegend() {
+  const seg = [["D","safe"],["D","likely"],["D","lean"],["D","tilt"],["R","tilt"],["R","lean"],["R","likely"],["R","safe"]];
+  const label = c => BANDS.find(b => b.cls === c).label;
+  const legend = $("legend");
+  legend.innerHTML = `
+    <div class="scale">${seg.map(([p, c]) => `<button class="seg ${p} ${c}" data-key="${p}-${c}"><i></i>${label(c)} ${p}</button>`).join("")}</div>
+    <div class="extras">
+      <button class="chip" data-key="detail"><i class="sw outline"></i>Detailed prediction</button>
+      <button class="chip" data-key="flip"><i class="sw flipmk"></i>Flip (dot shows who held it)</button>
+      <button class="chip" data-key="idle"><i class="sw idle"></i>No prediction</button>
+      <button class="chip" data-key="off"><i class="sw off"></i>No election</button>
+    </div>`;
+  /* Hovering a legend item spotlights matching states. */
+  const spotlight = key => highlight(key ? (n, el) => key === "detail" ? el.classList.contains("race") : key === "flip" ? el.classList.contains("flipped") : el.dataset.key === key : null);
+  legend.addEventListener("mouseover", e => { const b = e.target.closest("[data-key]"); if (b) spotlight(b.dataset.key); });
+  legend.addEventListener("focusin",   e => { const b = e.target.closest("[data-key]"); if (b) spotlight(b.dataset.key); });
+  legend.addEventListener("mouseleave", () => spotlight(null));
+  legend.addEventListener("focusout",   () => spotlight(null));
+}
+
+function paint() {
+  const flipped = new Set(flipList().map(f => f.name));
+  for (const [name, el] of paths) {
+    const race = RACES[mode][name], r = ratingOf(name);
+    let cls = "off", key = "off";
+    if (r) { cls = `${race ? "race" : "called"} ${r.party} ${r.cls}${flipped.has(name) ? " flipped" : ""}`; key = `${r.party}-${r.cls}`; }
+    else if (ELECTING[mode].includes(name)) { cls = "idle"; key = "idle"; }
+    el.setAttribute("class", "state " + cls);
+    el.dataset.key = key;
+    if (race) { el.setAttribute("tabindex", "0"); el.setAttribute("role", "button"); }
+    else { el.removeAttribute("tabindex"); el.removeAttribute("role"); }
+  }
+  $("legend").querySelector('[data-key="idle"]').hidden = ![...paths.values()].some(el => el.dataset.key === "idle");
+  if (detailFor !== mode) {               /* outlines fade in whenever the race type changes */
+    detailFor = mode;
+    detail.replaceChildren(...Object.keys(RACES[mode]).map(n => svgEl("path", { d: paths.get(n).getAttribute("d") })));
+  }
+  flipsG.replaceChildren(...flipList().map(f => {
+    const [x, y] = cent.get(f.name), g = svgEl("g", { transform: `translate(${x.toFixed(1)},${y.toFixed(1)})` });
+    g.append(svgEl("circle", { r: 6.5, class: "ring" }), svgEl("circle", { r: 3, class: `old ${f.from} safe` }));
+    return g;
+  }));
+  if (selected && !RACES[mode][selected]) selected = null;
+  outline.classList.remove("draw");
+  outline.setAttribute("d", selected ? paths.get(selected).getAttribute("d") : "");
+  if (selected) { void outline.getBBox(); outline.classList.add("draw"); }
+  showPanel();
+  try { history.replaceState(null, "", "#" + mode + (selected ? "/" + encodeURIComponent(selected) : "")); } catch (e) {}
+}
+
+function showPanel() {
+  const race = selected && RACES[mode][selected];
+  document.body.classList.toggle("has-sel", !!race);
+  panel.inert = !race;
+  if (!race) return;               /* keep old content while the panel slides shut */
+  const r = rate(race);
+  panel.innerHTML = `
+    <div class="panel-inner">
+      <i class="stripe ${r.party} ${r.cls}"></i>
+      <div class="panel-head">
+        <div><h2>${selected}</h2><p>${TITLES[mode]} race</p></div>
+        <span class="pill"><i class="dot ${r.party} ${r.cls}"></i>${r.label} ${r.party === "D" ? "Democratic" : "Republican"}</span>
+        <button class="close" aria-label="Close">×</button>
+      </div>
+      <img src="${race.img}" alt="${selected} ${TITLES[mode].toLowerCase()} prediction map">
+    </div>`;
+}
+
+function select(name) {
+  selected = name && RACES[mode][name] ? name : null;
+  paint();
+}
+
+function setMode(m) {
+  mode = m;
+  toggle.dataset.mode = m;
+  toggle.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  renderControl();
+}
+
+function tipHtml(name) {
+  const race = RACES[mode][name], r = ratingOf(name);
+  if (!r) return `<b>${name}</b>${ELECTING[mode].includes(name) ? "No prediction yet" : "No election in 2026"}`;
+  const margin = race ? ` (${r.party}+${Math.abs(race.margin).toFixed(1)})` : "";
+  const fl = flipList().find(x => x.name === name);
+  return `<b>${name}</b><i class="dot ${r.party} ${r.cls}"></i>${r.label} ${r.party}${margin}${fl ? `<em>Flips from ${fl.from} to ${fl.to}</em>` : ""}${race ? "<em>Click for detailed prediction</em>" : ""}`;
+}
+
+function moveTip(e) {
+  const w = tip.offsetWidth;
+  const x = e.clientX + 16 + w > innerWidth - 8 ? e.clientX - w - 16 : e.clientX + 16;
+  tip.style.transform = `translate(${x}px, ${e.clientY + 16}px)`;
+}
+
+async function init() {
+  buildLegend();
+  const mapEl = $("map");
+  try {
+    const us = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json");
+    const toPath = d3.geoPath();
+    const svg = svgEl("svg", { viewBox: "0 0 975 610", "aria-label": "Map of the United States" });
+
+    for (const f of topojson.feature(us, us.objects.states).features) {
+      const name = f.properties.name;
+      const el = svgEl("path", { class: "state", d: toPath(f), "aria-label": name });
+      cent.set(name, toPath.centroid(f));
+      el.style.setProperty("--d", (toPath.centroid(f)[0] / 975 * 0.6).toFixed(2) + "s");   /* west-to-east colour sweep */
+      el.addEventListener("click", () => select(name));
+      el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(name); } });
+      el.addEventListener("pointerenter", e => {
+        if (e.pointerType === "touch") return;
+        tip.innerHTML = tipHtml(name); tip.classList.add("on"); moveTip(e);
+        if (RACES[mode][name]) hover.setAttribute("d", el.getAttribute("d"));
+      });
+      el.addEventListener("pointermove", moveTip);
+      el.addEventListener("pointerleave", () => { tip.classList.remove("on"); hover.setAttribute("d", ""); });
+      el.addEventListener("focus", () => { if (kb && RACES[mode][name]) { hover.classList.add("kb"); hover.setAttribute("d", el.getAttribute("d")); } });
+      el.addEventListener("blur", () => { hover.classList.remove("kb"); hover.setAttribute("d", ""); });
+      svg.appendChild(el);
+      paths.set(name, el);
+    }
+    hover = svgEl("path", { id: "hover" });
+    outline = svgEl("path", { id: "outline", pathLength: "1" });
+    detail = svgEl("g", { id: "detail" });
+    flipsG = svgEl("g", { id: "flips" });
+    svg.append(detail, flipsG, hover, outline);
+    svg.addEventListener("click", e => { if (!e.target.classList.contains("race")) select(null); });
+
+    mapEl.innerHTML = "";
+    mapEl.appendChild(svg);
+    requestAnimationFrame(() => requestAnimationFrame(paint));   /* paint after first frame so the colours animate in */
+  } catch (err) {
+    mapEl.innerHTML = `<p class="msg">The map couldn’t load. Check your connection and reload the page.</p>`;
+  }
+}
+
+toggle.addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn || btn.dataset.mode === mode) return;
+  setMode(btn.dataset.mode);
+  if (outline) paint();
+});
+panel.addEventListener("click", e => { if (e.target.closest(".close")) select(null); });
+document.addEventListener("keydown", e => { kb = true; if (e.key === "Escape" && selected && !about.open) select(null); }, true);
+document.addEventListener("pointerdown", () => { kb = false; }, true);
+
+/* Try the alternate palette: add ?theme=soft to the URL */
+const theme = new URLSearchParams(location.search).get("theme");
+if (theme) document.documentElement.dataset.theme = theme;
+
+/* Deep links: #senate, #governor/Georgia */
+const [hm, hs] = location.hash.slice(1).split("/");
+if (TITLES[hm]) setMode(hm);
+if (hs) selected = decodeURIComponent(hs);
+
+Object.values(RACES).flatMap(Object.values).forEach(r => { new Image().src = r.img; });   /* warm the cache */
+$("control").addEventListener("click", e => { const f = e.target.closest("button[data-name]"); if (f) select(f.dataset.name); });
+$("control").addEventListener("mouseover", e => { const f = e.target.closest("[data-name]"); highlight(f ? n => n === f.dataset.name : null); });
+$("control").addEventListener("mouseleave", () => highlight(null));
+const about = $("about");
+$("aboutBtn").addEventListener("click", () => about.showModal());
+about.addEventListener("click", e => { if (e.target === about || e.target.closest(".about-close")) about.close(); });
+renderControl();
+init();
+</script>
+</body>
+</html>
