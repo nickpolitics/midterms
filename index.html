@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 Midterm Predictions</title>
+<meta name="theme-color" content="#f6fafb">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
+<style>
+:root,[data-theme=light]{color-scheme:light;--bg:#f6fafb;--c1:#ecf1f2;--c2:#e6ebec;--c3:#e0e5e6;--ink:#171d1e;--var:#3f484a;--ol:#6f797a;--olv:#bfc8ca;--pr:#006874;--onpr:#fff;--sc:#cde7ec;--onsc:#051f23;--idle:#d6dfe1;--off:#eef2f3;--inv:#2b3133;--oninv:#ecf1f2;--scrim:rgba(23,29,30,.45);
+  --D-tilt:#bcd3f2;--D-lean:#86b0e6;--D-likely:#3f7fd0;--D-safe:#14509e;--R-tilt:#f2c4c0;--R-lean:#e8928b;--R-likely:#cc4a42;--R-safe:#99231c}
+[data-theme=dark]{color-scheme:dark;--bg:#0e1415;--c1:#171d1e;--c2:#1b2122;--c3:#252b2c;--ink:#dee3e5;--var:#bfc8ca;--ol:#899294;--olv:#3f484a;--pr:#82d3e0;--onpr:#00363d;--sc:#334b4f;--onsc:#cde7ec;--idle:#2e3638;--off:#141a1b;--inv:#dde3e5;--oninv:#2b3133;--scrim:rgba(0,0,0,.6);
+  --D-tilt:#2f4668;--D-lean:#3a68a6;--D-likely:#4a8ae0;--D-safe:#6bb0ff;--R-tilt:#633633;--R-lean:#9a4843;--R-likely:#cf5a52;--R-safe:#f77c72}
+.D.tilt{--f:var(--D-tilt)}.D.lean{--f:var(--D-lean)}.D.likely{--f:var(--D-likely)}.D.safe{--f:var(--D-safe)}
+.R.tilt{--f:var(--R-tilt)}.R.lean{--f:var(--R-lean)}.R.likely{--f:var(--R-likely)}.R.safe{--f:var(--R-safe)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/24px Roboto,system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--pr);outline-offset:2px}
+h1,h2,p{margin:0}
+.nav{position:fixed;z-index:20;left:0;right:0;bottom:0;display:flex;height:calc(80px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--c2)}
+.nv{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:0;background:none;color:var(--var);font-size:12px;line-height:16px;font-weight:500}
+.nv .pill{display:grid;place-items:center;width:64px;height:32px;border-radius:16px;transition:background .2s}
+.nv:hover .pill{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.nv[aria-current=true]{color:var(--ink);font-weight:700}.nv[aria-current=true] .pill{background:var(--sc);color:var(--onsc)}
+.app{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:8px;height:calc(64px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 12px 0 20px;background:var(--bg)}
+.bar h1{flex:1;font-size:22px;line-height:28px;font-weight:500}
+.ib{display:grid;place-items:center;flex:none;width:48px;height:48px;border:0;border-radius:50%;background:none;color:var(--var)}
+.ib:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.main{display:grid;gap:16px;max-width:1360px;margin:0 auto;padding:8px 16px 24px}
+.card{background:var(--c1);border-radius:24px;box-shadow:inset 0 0 0 1px var(--olv)}
+.sum{display:grid}.sum>div{padding:24px}.sum>div+div{border-top:1px solid var(--olv)}
+.ck{margin-bottom:12px;font-size:14px;line-height:20px;font-weight:500;color:var(--var)}
+.score{display:flex;align-items:baseline;gap:12px;font-size:56px;line-height:64px}
+.score b{font-weight:400;color:var(--f)}.score span{font-size:16px;color:var(--var)}
+.verdict{margin-top:8px;font-size:22px;line-height:28px}.sub{display:block;font-size:14px;line-height:20px;color:var(--var)}
+.crow{display:grid;grid-template-columns:72px 28px 1fr 28px;align-items:center;gap:8px;font-size:14px}.crow+.crow{margin-top:14px}
+.lbl{font-weight:500;color:var(--var)}.n{font-weight:700;color:var(--f);font-variant-numeric:tabular-nums}.n:last-child{text-align:right}
+.seats{position:relative;display:flex;gap:2px;height:24px;padding:4px;border-radius:12px;background:var(--c3)}
+.seats i{display:block;background:var(--f);border-radius:4px}.now .seats i{opacity:.5}
+.seats i.gain{background:repeating-linear-gradient(135deg,var(--f) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1.5px var(--f)}
+.maj{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink)}
+.fg+.fg{margin-top:16px}.gl{display:block;margin-bottom:8px;font-size:14px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border:1px solid var(--ol);border-radius:8px;background:none;font-size:14px;font-weight:500}
+button.chip:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.st{border:0;background:var(--sc);color:var(--onsc)}.noflip{font-size:14px;color:var(--var)}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--f);flex:none}
+.stage{display:grid;gap:16px;align-items:start}
+.mapc{padding:16px}
+#map svg{display:block;width:100%;height:auto;-webkit-touch-callout:none}
+.msg{padding:80px 0;text-align:center;color:var(--var)}
+.state{fill:var(--idle);stroke:var(--bg);stroke-width:1.2;outline:none;transition:fill .5s ease var(--d,0s),opacity .3s}
+.state.off{fill:var(--off)}.state.race,.state.called{fill:var(--f)}.state.race{cursor:pointer}.state.dim{opacity:.2}
+#hover,#outline{fill:none;pointer-events:none;stroke-linejoin:round}
+#hover{stroke:var(--ink);stroke-width:2.6}#hover.kb{stroke-width:3.4}
+#outline{stroke:var(--ink);stroke-width:3.2;stroke-dasharray:1}#outline.draw{animation:draw .7s cubic-bezier(.2,0,0,1)}
+#detail,#flips{pointer-events:none}
+#detail path{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-opacity:.8;stroke-linejoin:round}
+.ring{fill:var(--bg);stroke:var(--ink);stroke-width:1.3}.old{fill:var(--f)}.spot #detail,.spot #flips{opacity:.25}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.legend{display:grid;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--olv)}
+.scale{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 6px}
+.lg{border:0;background:none;padding:0;font-size:12px;line-height:16px;font-weight:500;color:var(--var);text-align:center;cursor:default}
+.lg i{display:block;height:10px;margin-bottom:6px;background:var(--f);border-radius:5px}
+.extras{display:flex;flex-wrap:wrap;gap:8px 20px}
+.lk{display:inline-flex;align-items:center;gap:8px;border:0;background:none;padding:0;font-size:13px;line-height:20px;font-weight:500;color:var(--var);cursor:default}
+.lg:hover,.lk:hover{color:var(--ink)}.lk[hidden]{display:none}
+.sw{width:14px;height:14px;border-radius:4px;flex:none}
+.sw.outline{background:var(--idle);box-shadow:inset 0 0 0 2px var(--ink)}
+.sw.flipmk{border-radius:50%;background:radial-gradient(circle,var(--var) 0 28%,var(--c1) 32%);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.sw.idle{background:var(--idle)}.sw.off{background:var(--off);box-shadow:inset 0 0 0 1px var(--ol)}
+.side{overflow-y:auto;overscroll-behavior:contain}
+.sh{padding:20px 24px 8px}.sh h2{font-size:22px;line-height:28px;font-weight:500}.sh p{font-size:14px;line-height:20px;color:var(--var)}
+.dh{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:2;padding:12px 16px;background:var(--c1)}
+.list{padding:8px}
+.row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;width:100%;min-height:64px;padding:8px 16px;border:0;border-radius:16px;background:none;text-align:left}
+.row:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+.row .nm{font-weight:500}.row small{display:block;font-size:14px;line-height:20px;font-weight:400;color:var(--var)}
+.mg{font-size:14px;font-weight:700;color:var(--f);font-variant-numeric:tabular-nums}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:8px 24px 16px}
+.shot{margin:0 16px 16px;padding:8px;border-radius:16px;background:var(--c3)}
+.shot img{display:block;width:100%;height:auto;border-radius:12px}
+.shot .err{margin:0;padding:40px 12px;text-align:center;font-size:13px;color:var(--var);word-break:break-all}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 20px}
+.pn button{display:grid;gap:2px;min-height:56px;padding:8px 16px;border:1px solid var(--ol);border-radius:16px;background:none;text-align:left;font-weight:500}
+.pn button:last-child{text-align:right}.pn small{font-size:12px;font-weight:400;color:var(--var)}.pn button:hover{background:color-mix(in srgb,var(--ink) 8%,transparent)}
+dialog{width:min(640px,calc(100vw - 32px));max-height:86dvh;padding:0;border:0;border-radius:28px;background:var(--c2);color:var(--ink)}
+dialog::backdrop{background:var(--scrim)}
+.ab{max-height:86dvh;overflow-y:auto;padding:24px}.ab header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ab h2{font-size:24px;line-height:32px;font-weight:400}.ab p{margin:0 0 16px;line-height:1.7;color:var(--var)}.ab p b{color:var(--ink)}
+.tb{height:40px;padding:0 24px;border:0;border-radius:20px;background:var(--pr);color:var(--onpr);font-weight:500}
+.ab footer{display:flex;justify-content:flex-end}
+#tip{position:fixed;top:0;left:0;z-index:30;pointer-events:none;opacity:0;transition:opacity .15s;padding:8px 12px;border-radius:8px;background:var(--inv);color:var(--oninv);font-size:13px;line-height:20px;white-space:nowrap}
+#tip.on{opacity:1}#tip b{display:block;font-size:14px}#tip em{display:block;font-style:normal;opacity:.75}#tip .dot{margin-right:6px;box-shadow:0 0 0 1.5px var(--oninv)}
+@keyframes up{from{transform:translateY(48px);opacity:0}}
+@media(max-width:999px){
+  body.has-sel{overflow:hidden}body.has-sel::after{content:"";position:fixed;inset:0;z-index:25;background:var(--scrim)}
+  body.has-sel .side{position:fixed;z-index:30;left:0;right:0;bottom:0;height:88dvh;border-radius:28px 28px 0 0;background:var(--c1);animation:up .3s cubic-bezier(.2,0,0,1)}
+}
+@media(max-width:599px){dialog{width:100%;max-width:none;height:100%;max-height:none;border-radius:0}.ab{max-height:none;height:100%}}
+@media(min-width:840px){
+  .nav{top:0;right:auto;flex-direction:column;justify-content:flex-start;width:80px;height:auto;padding:88px 0 0;gap:12px;background:var(--bg)}
+  .nv{flex:none;height:64px}.app{margin-left:80px;padding-bottom:0}
+  .main{gap:24px;padding:8px 24px 32px}
+  .sum{grid-template-columns:1fr 1.4fr 1.2fr}.sum>div+div{border-top:0;border-left:1px solid var(--olv)}
+  .scale{grid-template-columns:repeat(8,1fr)}.mapc{padding:24px}
+}
+@media(min-width:1000px){
+  .stage{grid-template-columns:minmax(0,1fr) 400px}
+  .side{position:sticky;top:80px;max-height:calc(100dvh - 104px)}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Primary">
+  <button class="nv" data-mode="senate"><span class="pill" data-ic="senate"></span>Senate</button>
+  <button class="nv" data-mode="governor"><span class="pill" data-ic="flag"></span>Governors</button>
+  <button class="nv" id="aboutBtn"><span class="pill" data-ic="info"></span>Methodology</button>
+</nav>
+<div class="app">
+  <header class="bar"><h1>2026 Midterm Predictions</h1><button class="ib" id="themeBtn"></button></header>
+  <main class="main">
+    <section class="card sum" id="control" aria-label="Chamber control"></section>
+    <div class="stage">
+      <section class="card mapc">
+        <div id="map"><p class="msg">Loading map…</p></div>
+        <div class="legend" id="legend"></div>
+      </section>
+      <aside class="card side" id="side" aria-label="Races"></aside>
+    </div>
+  </main>
+</div>
+<div id="tip" role="tooltip"></div>
+<dialog id="about" aria-labelledby="aboutTitle">
+  <div class="ab">
+    <header><h2 id="aboutTitle">Methodology</h2><button class="ib" data-close aria-label="Close" data-ic="close"></button></header>
+    <p>These are informal predictions done by someone who follows politics as a hobby, and as such take any predictions with a grain of salt. Most of my predictions are a combination of current polling, fundamentals, and my personal opinion. Here, I will explain what each of these mean and how they come into play.</p>
+    <p><b>Polling</b> - Arguably the simplest one. I heavily weigh in polling into my predictions, as it gives a good general indicator of candidate quality. For example, polling consistently shows James Talarico as a strong candidate against Ken Paxton, who consistently polls as a weak candidate. Or alternatively, we can apply this to states like Nebraska, where polling suggests Dan Osborn is running a significantly weaker campaign this year compared to two years ago.</p>
+    <p><b>Fundamentals</b> - Looking at a state, it's demographics, and it's national environment. Polling and early vote shows significant swings in Hispanic voters to the Democratic Party, and is most demonstrated in Mexican-Americans. As such, I weigh in these fundamentals to states with large Hispanic populations, such as Texas, Florida, and Georgia. Additionally, the national environment suggest that Democrats are now the party of high propensity voters - highly informed voters that tend to vote even in little-known elections. Early voting has also shown weaker Republican turnout nationally.</p>
+    <p><b>My personal opinion</b> - Of course, some of these are just in part my opinion. Some states I give heavier preference to either Democrats or Republicans, usually due to my personal opinion on how well a candidate is running their campaign.</p>
+    <footer><button class="tb" data-close>Close</button></footer>
+  </div>
+</dialog>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+const RACES = {
+  senate: {
+    "Alaska":         { margin:  2.3, img: "images/ak-senate.png" },
+    "Florida":        { margin: -7.2, img: "images/fl-senate.png" },
+    "Georgia":        { margin:  8.3, img: "images/ga-senate.png" },
+    "Iowa":           { margin: -1.7, img: "images/ia-senate.png" },
+    "Kansas":         { margin: -2.6, img: "images/ks-senate.png" },
+    "Maine":          { margin:  2.4, img: "images/me-senate.png" },
+    "Michigan":       { margin:  3.7, img: "images/mi-senate.png" },
+    "Minnesota":      { margin:  5.9, img: "images/mn-senate.png" },
+    "Mississippi":    { margin: -6.5, img: "images/ms-senate.png" },
+    "Nebraska":       { margin: -4.9, img: "images/ne-senate.png" },
+    "North Carolina": { margin:  8.3, img: "images/nc-senate.png" },
+    "Ohio":           { margin:  2.0, img: "images/oh-senate.png" },
+    "South Carolina": { margin: -3.8, img: "images/sc-senate.png" },
+    "Texas":          { margin:  1.5, img: "images/tx-senate.png" }
+  },
+  governor: {
+    "Alaska":       { margin:   5.0, img: "images/ak-governor.png" },
+    "Arizona":      { margin:   6.9, img: "images/az-governor.png" },
+    "Florida":      { margin:  -2.3, img: "images/fl-governor.png" },
+    "Georgia":      { margin:   1.1, img: "images/ga-governor.png" },
+    "Iowa":         { margin:   6.2, img: "images/ia-governor.png" },
+    "New York":     { margin:  13.3, img: "images/ny-governor.png" },
+    "Ohio":         { margin:   3.2, img: "images/oh-governor.png" },
+    "Pennsylvania": { margin:  19.0, img: "images/pa-governor.png" },
+    "Texas":        { margin:  -1.4, img: "images/tx-governor.png" },
+    "Wisconsin":    { margin:   7.1, img: "images/wi-governor.png" }
+  }
+};
+/* RATINGS ONLY: states coloured on the map without a detailed page. Format: "Safe D", "Likely R", "Lean D", "Tilt R". */
+const RATINGS = {
+  senate: {
+    "South Dakota": "Likely R", "Montana": "Likely R", "New Hampshire": "Likely D",
+    "Illinois": "Safe D", "Virginia": "Safe D", "New Mexico": "Safe D", "Colorado": "Safe D",
+    "Oregon": "Safe D", "Massachusetts": "Safe D", "Delaware": "Safe D", "New Jersey": "Safe D", "Rhode Island": "Safe D",
+    "Kentucky": "Safe R", "West Virginia": "Safe R", "Tennessee": "Safe R", "Alabama": "Safe R", "Louisiana": "Likely R",
+    "Arkansas": "Safe R", "Oklahoma": "Safe R", "Wyoming": "Safe R", "Idaho": "Safe R"
+  },
+  governor: {
+    "California": "Safe D", "Colorado": "Safe D", "New Mexico": "Safe D", "Illinois": "Safe D", "Maryland": "Safe D",
+    "Massachusetts": "Safe D", "Rhode Island": "Safe D", "Connecticut": "Safe D", "Minnesota": "Safe D", "Hawaii": "Safe D",
+    "Michigan": "Likely D", "Maine": "Likely D", "Nevada": "Tilt D", "Oregon": "Lean D",
+    "Idaho": "Safe R", "Wyoming": "Safe R", "Nebraska": "Safe R", "South Dakota": "Safe R",
+    "Tennessee": "Safe R", "Oklahoma": "Safe R", "Arkansas": "Safe R", "Alabama": "Safe R",
+    "South Carolina": "Likely R", "New Hampshire": "Likely R", "Vermont": "Likely R", "Kansas": "Lean R"
+  }
+};
+/* A margin under `max` gets that label (Tilt <1, Lean 1-5, Likely 5-15, Safe 15+). */
+const BANDS = [
+  { max: 1, label: "Tilt", cls: "tilt" }, { max: 5, label: "Lean", cls: "lean" },
+  { max: 15, label: "Likely", cls: "likely" }, { max: Infinity, label: "Safe", cls: "safe" }
+];
+const ELECTING = {
+  senate: "Alabama, Alaska, Arkansas, Colorado, Delaware, Florida, Georgia, Idaho, Illinois, Iowa, Kansas, Kentucky, Louisiana, Maine, Massachusetts, Michigan, Minnesota, Mississippi, Montana, Nebraska, New Hampshire, New Jersey, New Mexico, North Carolina, Ohio, Oklahoma, Oregon, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Virginia, West Virginia, Wyoming".split(", "),
+  governor: "Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Florida, Georgia, Hawaii, Idaho, Illinois, Iowa, Kansas, Maine, Maryland, Massachusetts, Michigan, Minnesota, Nebraska, Nevada, New Hampshire, New Mexico, New York, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Vermont, Wisconsin, Wyoming".split(", ")
+};
+/* `now` counts current seats (Senate D includes 2 independents); `up` is who holds each seat on the 2026 ballot. */
+const CONTROL = {
+  senate: { of: "the Senate", total: 100, need: 51, now: { D: 47, R: 53 }, noun: "seats",
+    up: {
+      D: "Colorado, Delaware, Georgia, Illinois, Massachusetts, Michigan, Minnesota, New Hampshire, New Jersey, New Mexico, Oregon, Rhode Island, Virginia".split(", "),
+      R: "Alabama, Alaska, Arkansas, Florida, Idaho, Iowa, Kansas, Kentucky, Louisiana, Maine, Mississippi, Montana, Nebraska, North Carolina, Ohio, Oklahoma, South Carolina, South Dakota, Tennessee, Texas, West Virginia, Wyoming".split(", ") } },
+  governor: { of: "governorships", total: 50, need: 26, now: { D: 24, R: 26 }, noun: "governorships",
+    up: {
+      D: "Arizona, California, Colorado, Connecticut, Hawaii, Illinois, Kansas, Maine, Maryland, Massachusetts, Michigan, Minnesota, New Mexico, New York, Oregon, Pennsylvania, Rhode Island, Wisconsin".split(", "),
+      R: "Alabama, Alaska, Arkansas, Florida, Georgia, Idaho, Iowa, Nebraska, Nevada, New Hampshire, Ohio, Oklahoma, South Carolina, South Dakota, Tennessee, Texas, Vermont, Wyoming".split(", ") } }
+};
+const PARTY = { D: "Democrats", R: "Republicans" }, FULL = { D: "Democratic", R: "Republican" };
+const TITLES = { senate: "Senate", governor: "Governor" };
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const S = b => `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">${b}</svg>`;
+const IC = {
+  senate: S('<path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"/>'),
+  flag: S('<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>'),
+  info: S('<path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>'),
+  close: S('<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>'),
+  back: S('<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>'),
+  sun: S('<circle cx="12" cy="12" r="4"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>'),
+  moon: S('<path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/>')
+};
+document.querySelectorAll("[data-ic]").forEach(e => e.innerHTML = IC[e.dataset.ic]);
+
+const side = $("side"), tip = $("tip"), nav = document.querySelector(".nav");
+const paths = new Map(), cent = new Map();
+let mode = "senate", selected = null, detailFor = null, outline, hover, detail, flipsG, kb = false;
+
+/* ---- theme ---- */
+function setTheme(t, save) {
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#0e1415" : "#f6fafb";
+  const b = $("themeBtn");
+  b.innerHTML = t === "dark" ? IC.sun : IC.moon;
+  b.setAttribute("aria-label", `Switch to ${t === "dark" ? "light" : "dark"} theme`);
+  if (save) try { localStorage.setItem("theme", t); } catch (e) {}
+}
+$("themeBtn").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true));
+setTheme(document.documentElement.dataset.theme);
+
+/* ---- data helpers ---- */
+const rate = race => ({ ...BANDS.find(b => Math.abs(race.margin) < b.max), party: race.margin > 0 ? "D" : "R" });
+const ratingOf = name => {
+  const race = RACES[mode][name];
+  if (race) return rate(race);
+  const s = RATINGS[mode][name];
+  if (!s) return null;
+  const [label, party] = s.split(" ");
+  return { label, party, cls: label.toLowerCase() };
+};
+const svgEl = (tag, attrs = {}) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+const sorted = () => Object.keys(RACES[mode]).sort((a, b) => RACES[mode][b].margin - RACES[mode][a].margin);
+
+function flipList() {
+  const c = CONTROL[mode], out = [];
+  for (const p of ["D", "R"]) for (const name of c.up[p]) { const r = ratingOf(name); if (r && r.party !== p) out.push({ name, from: p, to: r.party }); }
+  return out;
+}
+function highlight(match) {
+  paths.forEach((el, n) => el.classList.toggle("dim", !!match && !match(n, el)));
+  const svg = document.querySelector("#map svg");
+  if (svg) svg.classList.toggle("spot", !!match);
+}
+
+/* ---- summary ---- */
+function renderControl() {
+  const c = CONTROL[mode], flips = { D: [], R: [] };
+  for (const f of flipList()) flips[f.to].push(f.name);
+  const a = flips.D.length, b = flips.R.length;
+  const proj = { D: c.now.D + a - b, R: c.now.R + b - a };
+  const lead = x => x.D >= c.need ? "D" : x.R >= c.need ? "R" : null;
+  const [was, will] = [lead(c.now), lead(proj)];
+  const verdict = will ? `${PARTY[will]} ${will === was ? "keep" : "take"} control` : "No majority";
+  const net = proj.D - c.now.D;
+  const netTxt = net ? `${PARTY[net > 0 ? "D" : "R"]} gain ${Math.abs(net)} ${c.noun}` : "No net change";
+  const seats = parts => `<div class="seats">${parts.filter(p => p[0] > 0).map(([n, k]) => `<i class="${k}" style="flex:${n}"></i>`).join("")}<b class="maj" style="left:${c.need / c.total * 100}%"></b></div>`;
+  const row = (cls, label, x, parts) => `<div class="crow ${cls}"><span class="lbl">${label}</span><b class="n D safe">${x.D}</b>${seats(parts)}<b class="n R safe">${x.R}</b></div>`;
+  const chip = (p, n) => RACES[mode][n] ? `<button class="chip" data-name="${n}"><i class="dot ${p} safe"></i>${n}</button>` : `<span class="chip"><i class="dot ${p} safe"></i>${n}</span>`;
+  const group = (p, l) => l.length ? `<div class="fg"><span class="gl">${l.length} to ${PARTY[p]}</span><div class="chips">${l.map(n => chip(p, n)).join("")}</div></div>` : "";
+  $("control").innerHTML = `
+    <div><p class="ck">Projected control of ${c.of}</p>
+      <div class="score"><b class="D safe">${proj.D}</b><span>to</span><b class="R safe">${proj.R}</b></div>
+      <div class="verdict">${verdict}</div><span class="sub">${netTxt}</span></div>
+    <div><p class="ck">Seats. The line marks ${c.need} for a majority, striped seats flip.</p>
+      ${row("now", "Now", c.now, [[c.now.D, "D safe"], [c.now.R, "R safe"]])}
+      ${row("", "Projected", proj, [[proj.D - a, "D safe"], [a, "D safe gain"], [b, "R safe gain"], [proj.R - b, "R safe"]])}</div>
+    <div><p class="ck">Seats that flip</p>${group("D", flips.D)}${group("R", flips.R)}${a + b ? "" : '<span class="noflip">No seats flip</span>'}</div>`;
+}
+
+/* ---- legend ---- */
+function buildLegend() {
+  const seg = [["D","safe"],["D","likely"],["D","lean"],["D","tilt"],["R","tilt"],["R","lean"],["R","likely"],["R","safe"]];
+  const label = c => BANDS.find(b => b.cls === c).label;
+  const legend = $("legend");
+  legend.innerHTML = `
+    <div class="scale">${seg.map(([p, c]) => `<button class="lg ${p} ${c}" data-key="${p}-${c}"><i></i>${label(c)} ${p}</button>`).join("")}</div>
+    <div class="extras">
+      <button class="lk" data-key="detail"><i class="sw outline"></i>Detailed prediction</button>
+      <button class="lk" data-key="flip"><i class="sw flipmk"></i>Flip (dot shows who held it)</button>
+      <button class="lk" data-key="idle"><i class="sw idle"></i>No prediction</button>
+      <button class="lk" data-key="off"><i class="sw off"></i>No election</button>
+    </div>`;
+  const spot = key => highlight(key ? (n, el) => key === "detail" ? el.classList.contains("race") : key === "flip" ? el.classList.contains("flipped") : el.dataset.key === key : null);
+  legend.addEventListener("mouseover", e => { const b = e.target.closest("[data-key]"); if (b) spot(b.dataset.key); });
+  legend.addEventListener("focusin", e => { const b = e.target.closest("[data-key]"); if (b) spot(b.dataset.key); });
+  legend.addEventListener("mouseleave", () => spot(null));
+  legend.addEventListener("focusout", () => spot(null));
+}
+
+/* ---- map ---- */
+function paint() {
+  const flipped = new Set(flipList().map(f => f.name));
+  for (const [name, el] of paths) {
+    const race = RACES[mode][name], r = ratingOf(name);
+    let cls = "off", key = "off";
+    if (r) { cls = `${race ? "race" : "called"} ${r.party} ${r.cls}${flipped.has(name) ? " flipped" : ""}`; key = `${r.party}-${r.cls}`; }
+    else if (ELECTING[mode].includes(name)) { cls = "idle"; key = "idle"; }
+    el.setAttribute("class", "state " + cls);
+    el.dataset.key = key;
+    if (race) { el.setAttribute("tabindex", "0"); el.setAttribute("role", "button"); }
+    else { el.removeAttribute("tabindex"); el.removeAttribute("role"); }
+  }
+  $("legend").querySelector('[data-key="idle"]').hidden = ![...paths.values()].some(el => el.dataset.key === "idle");
+  if (detailFor !== mode) {
+    detailFor = mode;
+    detail.replaceChildren(...Object.keys(RACES[mode]).map(n => svgEl("path", { d: paths.get(n).getAttribute("d") })));
+  }
+  flipsG.replaceChildren(...flipList().map(f => {
+    const [x, y] = cent.get(f.name), g = svgEl("g", { transform: `translate(${x.toFixed(1)},${y.toFixed(1)})` });
+    g.append(svgEl("circle", { r: 6.5, class: "ring" }), svgEl("circle", { r: 3, class: `old ${f.from} safe` }));
+    return g;
+  }));
+  if (selected && !RACES[mode][selected]) selected = null;
+  outline.classList.remove("draw");
+  outline.setAttribute("d", selected ? paths.get(selected).getAttribute("d") : "");
+  if (selected) { void outline.getBBox(); outline.classList.add("draw"); }
+  showSide();
+  try { history.replaceState(null, "", "#" + mode + (selected ? "/" + encodeURIComponent(selected) : "")); } catch (e) {}
+}
+
+/* ---- side panel: race list, or one race's detail ---- */
+function showSide() {
+  const race = selected && RACES[mode][selected], names = sorted(), flips = new Map(flipList().map(f => [f.name, f.from]));
+  document.body.classList.toggle("has-sel", !!race);
+  side.scrollTop = 0;
+  if (!race) {
+    side.innerHTML = `<div class="sh"><h2>All ${TITLES[mode].toLowerCase()} races</h2><p>${names.length} detailed predictions, most Democratic first</p></div>
+      <div class="list">${names.map(n => { const m = RACES[mode][n], r = rate(m);
+        return `<button class="row" data-name="${n}"><i class="dot ${r.party} ${r.cls}"></i><span class="nm">${n}<small>${r.label} ${r.party}${flips.has(n) ? `, flips from ${flips.get(n)}` : ""}</small></span><span class="mg ${r.party} ${r.cls}">${r.party}+${Math.abs(m.margin).toFixed(1)}</span></button>`; }).join("")}</div>`;
+    return;
+  }
+  const r = rate(race), i = names.indexOf(selected), pv = names[i - 1], nx = names[i + 1];
+  const nb = (n, cap) => n ? `<button data-name="${n}"><small>${cap}</small>${n}</button>` : "<span></span>";
+  side.innerHTML = `
+    <div class="sh dh"><button class="ib" data-act="back" aria-label="Back to all races">${IC.back}</button><div><h2>${selected}</h2><p>${TITLES[mode]} race</p></div></div>
+    <div class="tags"><span class="chip st"><i class="dot ${r.party} ${r.cls}"></i>${r.label} ${FULL[r.party]}</span><span class="chip st">${r.party}+${Math.abs(race.margin).toFixed(1)}</span>${flips.has(selected) ? `<span class="chip st">Flips from ${flips.get(selected)}</span>` : ""}</div>
+    <div class="shot"><img onerror="this.outerHTML='<p class=err>Couldn’t load '+this.getAttribute('src')+'. Make sure the images folder is uploaded next to index.html.</p>'" src="${race.img}" alt="${selected} ${TITLES[mode].toLowerCase()} prediction map"></div>
+    <div class="pn">${nb(pv, "More Democratic")}${nb(nx, "More Republican")}</div>`;
+}
+
+function select(name) { selected = name && RACES[mode][name] ? name : null; paint(); }
+
+function setMode(m) {
+  mode = m;
+  nav.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-current", String(b.dataset.mode === m)));
+  renderControl();
+}
+
+/* ---- tooltip ---- */
+function tipHtml(name) {
+  const race = RACES[mode][name], r = ratingOf(name);
+  if (!r) return `<b>${name}</b>${ELECTING[mode].includes(name) ? "No prediction yet" : "No election in 2026"}`;
+  const margin = race ? ` (${r.party}+${Math.abs(race.margin).toFixed(1)})` : "";
+  const fl = flipList().find(x => x.name === name);
+  return `<b>${name}</b><i class="dot ${r.party} ${r.cls}"></i>${r.label} ${r.party}${margin}${fl ? `<em>Flips from ${fl.from} to ${fl.to}</em>` : ""}${race ? "<em>Select for detailed prediction</em>" : ""}`;
+}
+function moveTip(e) {
+  const w = tip.offsetWidth, x = e.clientX + 16 + w > innerWidth - 8 ? e.clientX - w - 16 : e.clientX + 16;
+  tip.style.transform = `translate(${x}px, ${e.clientY + 16}px)`;
+}
+
+async function init() {
+  buildLegend();
+  const mapEl = $("map");
+  try {
+    const us = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json");
+    const toPath = d3.geoPath();
+    const svg = svgEl("svg", { viewBox: "0 0 975 610", "aria-label": "Map of the United States" });
+    for (const f of topojson.feature(us, us.objects.states).features) {
+      const name = f.properties.name;
+      const el = svgEl("path", { class: "state", d: toPath(f), "aria-label": name });
+      cent.set(name, toPath.centroid(f));
+      el.style.setProperty("--d", (toPath.centroid(f)[0] / 975 * 0.6).toFixed(2) + "s");
+      el.addEventListener("click", () => select(name));
+      el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(name); } });
+      el.addEventListener("pointerenter", e => {
+        if (e.pointerType === "touch") return;
+        tip.innerHTML = tipHtml(name); tip.classList.add("on"); moveTip(e);
+        if (RACES[mode][name]) hover.setAttribute("d", el.getAttribute("d"));
+      });
+      el.addEventListener("pointermove", moveTip);
+      el.addEventListener("pointerleave", () => { tip.classList.remove("on"); hover.setAttribute("d", ""); });
+      el.addEventListener("focus", () => { if (kb && RACES[mode][name]) { hover.classList.add("kb"); hover.setAttribute("d", el.getAttribute("d")); } });
+      el.addEventListener("blur", () => { hover.classList.remove("kb"); hover.setAttribute("d", ""); });
+      svg.appendChild(el);
+      paths.set(name, el);
+    }
+    hover = svgEl("path", { id: "hover" });
+    outline = svgEl("path", { id: "outline", pathLength: "1" });
+    detail = svgEl("g", { id: "detail" });
+    flipsG = svgEl("g", { id: "flips" });
+    svg.append(detail, flipsG, hover, outline);
+    svg.addEventListener("click", e => { if (!e.target.classList.contains("race")) select(null); });
+    mapEl.innerHTML = "";
+    mapEl.appendChild(svg);
+    requestAnimationFrame(() => requestAnimationFrame(paint));
+  } catch (err) {
+    mapEl.innerHTML = `<p class="msg">The map couldn’t load. Check your connection and reload the page.</p>`;
+  }
+}
+
+/* ---- events ---- */
+nav.addEventListener("click", e => {
+  const b = e.target.closest("[data-mode]");
+  if (!b || b.dataset.mode === mode) return;
+  setMode(b.dataset.mode);
+  selected = null;
+  if (outline) paint(); else showSide();
+});
+const open = e => { const t = e.target.closest("[data-name]"); if (t) select(t.dataset.name); };
+side.addEventListener("click", e => { if (e.target.closest("[data-act=back]")) select(null); else open(e); });
+$("control").addEventListener("click", open);
+$("control").addEventListener("mouseover", e => { const f = e.target.closest("[data-name]"); highlight(f ? n => n === f.dataset.name : null); });
+$("control").addEventListener("mouseleave", () => highlight(null));
+side.addEventListener("mouseover", e => { const f = e.target.closest(".row"); highlight(f ? n => n === f.dataset.name : null); });
+side.addEventListener("mouseleave", () => highlight(null));
+const about = $("about");
+$("aboutBtn").addEventListener("click", () => about.showModal());
+about.addEventListener("click", e => { if (e.target === about || e.target.closest("[data-close]")) about.close(); });
+document.addEventListener("keydown", e => { kb = true; if (e.key === "Escape" && selected && !about.open) select(null); }, true);
+document.addEventListener("pointerdown", () => { kb = false; }, true);
+document.addEventListener("click", e => { if (e.target === document.body && selected) select(null); });
+
+/* Deep links: #senate, #governor/Georgia */
+const [hm, hs] = location.hash.slice(1).split("/");
+if (TITLES[hm]) setMode(hm);
+if (hs) selected = decodeURIComponent(hs);
+Object.values(RACES).flatMap(Object.values).forEach(r => { new Image().src = r.img; });
+setMode(mode);
+showSide();
+init();
+</script>
+</body>
+</html>
